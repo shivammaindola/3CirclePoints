@@ -10,12 +10,16 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.PointF;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -23,7 +27,7 @@ import java.util.List;
 
 public class MainActivity extends Activity {
 
-    LinearLayout layout;
+    RelativeLayout layout;
     float x = 0;
     float y = 0;
 
@@ -31,7 +35,7 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        layout=(LinearLayout)findViewById(R.id.layout);
+        layout=(RelativeLayout)findViewById(R.id.layout);
         layout.addView(new CustomView(MainActivity.this));
     }
 
@@ -58,7 +62,42 @@ public class MainActivity extends Activity {
             if(pointslist.size()<=3) {
                 for (int i = 0; i < pointslist.size(); i++) {
                     canvas.drawCircle(pointslist.get(i).x, pointslist.get(i).y, 10, paint);
+                    if(i==0){
+                        TextView textV = new TextView(getContext());
+                        textV.setGravity(Gravity.LEFT);
+                        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
+                                RelativeLayout.LayoutParams.MATCH_PARENT,RelativeLayout.LayoutParams.MATCH_PARENT);
 
+                        layoutParams.setMargins((int)pointslist.get(i).x, (int)pointslist.get(i).y, 0, 0);
+                        textV.setLayoutParams(layoutParams);
+                        textV.setText("A");
+
+                        layout.addView(textV);
+                    }
+                    if(i==1){
+                        TextView textV = new TextView(getContext());
+                        textV.setGravity(Gravity.LEFT);
+                        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
+                                RelativeLayout.LayoutParams.MATCH_PARENT,RelativeLayout.LayoutParams.MATCH_PARENT);
+
+                        layoutParams.setMargins((int)pointslist.get(i).x, (int)pointslist.get(i).y, 0, 0);
+                        textV.setLayoutParams(layoutParams);
+                        textV.setText("B");
+
+                        layout.addView(textV);
+                    }
+                    if(i==2){
+                        TextView textV = new TextView(getContext());
+                        textV.setGravity(Gravity.LEFT);
+                        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
+                                RelativeLayout.LayoutParams.MATCH_PARENT,RelativeLayout.LayoutParams.MATCH_PARENT);
+
+                        layoutParams.setMargins((int)pointslist.get(i).x, (int)pointslist.get(i).y, 0, 0);
+                        textV.setLayoutParams(layoutParams);
+                        textV.setText("C");
+
+                        layout.addView(textV);
+                    }
                 }
 
                 if(pointslist.size()==3){
@@ -75,8 +114,10 @@ public class MainActivity extends Activity {
 
         public boolean onTouchEvent(MotionEvent event) {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
+
                 x = event.getX();
                 y = event.getY();
+
                 pointslist.add(new PointF(x,y));
 
                 invalidate();
